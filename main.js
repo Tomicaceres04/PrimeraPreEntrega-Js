@@ -1,22 +1,20 @@
 
-//Creo una variable fuera del bucle para almacenar las notas agregadas
-let ultimaNota = null;  // Variable para almacenar la última nota fuera del bucle
+let ultimaNota = null; //Creo una variable fuera del bucle para almacenar las notas agregadas
 
 // Bucle principal
 
 while (true) {
-    //Pido al usuario que ingrese la opcion que desea realizar
-    let opcion = Number(prompt('¿Qué quieres hacer? \n 1) Agregar 2) Mostrar última nota 3) Editar 4) Eliminar 0) Salir'));
+    let opcion = prompt('¿Qué quieres hacer? \n 1) Agregar 2) Mostrar última nota 3) Editar 4) Eliminar 0) Salir');//Pido al usuario que ingrese la opcion que desea realizar
     
-    // Verifico que haya ingresado un número
-    while (isNaN(opcion) || opcion < 0 || opcion > 4) {
-        opcion = Number(prompt("Por favor, ingresa una Opción Correcta \n 1) Agregar 2) Mostrar última nota 3) Editar 4) Eliminar 0) Salir"));
+    // Verifico que haya ingresado un número correcto del 1 al 4 
+    while (isNaN(opcion) || opcion < 0 || opcion > 4 || opcion == null || opcion == "") {
+        opcion = prompt("Por favor, ingresa una Opción Correcta \n 1) Agregar 2) Mostrar última nota 3) Editar 4) Eliminar 0) Salir");
     }
 
+    //Arranacan las opciones del 1 al 4 con su funcionalidad
     if (opcion == 1) {
-        //Remplazo la ultima nota por la nota agregada
-        ultimaNota = agregarNota();
-        alert("Nota agregada:\n" + ultimaNota.titulo + "\n" + ultimaNota.contenido);
+        ultimaNota = agregarNota();//Remplazo la ultima nota por la nota agregada
+        alert("Nota agregada:\n" + "Titulo: " + ultimaNota.titulo + "\n" + "Nota:" + ultimaNota.contenido);
     } else if (opcion == 2) {
         //Muestro lo que este en la variable ultima nota
         mostrarUltimaNota();
@@ -24,7 +22,7 @@ while (true) {
         //Reemplazo la variable ultima nota por la nota nueva editada de la funcion editar nota si no tiene nota pasa al else que dice que no se realiza una edicion
         ultimaNota = editarNota(ultimaNota);
         if (ultimaNota) {
-            alert("Nota editada:\n" + ultimaNota.titulo + "\n" + ultimaNota.contenido);
+            alert("Nota editada:\n" + "Titulo: " + ultimaNota.titulo + "\n" + "Nota: " + ultimaNota.contenido);
         } else {
             alert("No se realizó ninguna edición.");
         }
@@ -34,9 +32,6 @@ while (true) {
     } else if (opcion == 0) {
         //Si oprime 0 se hace el break del while y sale del ciclo
         break;
-    } else {
-        //Si ingresa un numero incorrecto le sale un cartel solicitando un numero correcto
-        alert("Por favor, ingresa una Opción Correcta \n 1) Agregar 2) Mostrar última nota 3) Editar 4) Eliminar 0) Salir");
     }
 }
 
@@ -45,10 +40,18 @@ while (true) {
 
 function agregarNota() {
     //Pido al usuario un titulo y una nota para agregar esto se va a almacenar en la variable ultima nota
-    let tituloNota = prompt("¿Cuál es el título de la nota que quieres agregar?").toUpperCase();
-    let notaAgregada = prompt("Escribe tu nota:");
+    while (true) {
+        let tituloNota = prompt("¿Cuál es el título de la nota que quieres agregar?");
+        
+        //Verifico que el usuario ingresa un titulo y algo vacio
+        while (tituloNota == "" || tituloNota == null) {
+            tituloNota = prompt("Porfavor ingrese algun titulo");    
+        }
+        
+        let notaAgregada = prompt("Escribe tu nota:");
 
-    return { titulo: tituloNota, contenido: notaAgregada };
+        return { titulo: tituloNota, contenido: notaAgregada };
+    }
 }
 
 function mostrarUltimaNota() {
